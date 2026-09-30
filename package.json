@@ -1,0 +1,84 @@
+{
+  "name": "ombor-desktop",
+  "productName": "Obmor",
+  "version": "0.1.0",
+  "author": "ismailovwd",
+  "description": "Windows uchun lokal ombor boshqaruv dasturi",
+  "main": "./out/main/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/run-electron-vite.mjs dev",
+    "build": "npm run typecheck && electron-vite build",
+    "preview": "node scripts/run-electron-vite.mjs preview",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.node.json --noEmit && tsc -p tsconfig.web.json --noEmit",
+    "test": "vitest run",
+    "package:dir": "npm run build && electron-builder --dir",
+    "package:win": "npm run build && electron-builder --win nsis --x64",
+    "rebuild:native": "electron-builder install-app-deps",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "uz.ombor.desktop",
+    "productName": "Obmor",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/better-sqlite3/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "Obmor",
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "dependencies": {
+    "better-sqlite3": "13.0.3",
+    "recharts": "3.10.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@mantine/core": "9.6.3",
+    "@mantine/form": "^9.6.3",
+    "@mantine/hooks": "9.6.3",
+    "@mantine/notifications": "^9.6.3",
+    "@types/better-sqlite3": "9.6.0",
+    "@types/node": "26.6.3",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "5.2.0",
+    "electron": "44.4.5",
+    "electron-builder": "26.15.3",
+    "electron-vite": "5.0.0",
+    "eslint": "10.11.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.7",
+    "globals": "17.12.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-router-dom": "7.18.4",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "vite": "7.3.6",
+    "vitest": "5.0.2"
+  }
+}
